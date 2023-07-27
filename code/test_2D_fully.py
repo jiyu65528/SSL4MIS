@@ -1,5 +1,6 @@
 import argparse
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import shutil
 
 import h5py

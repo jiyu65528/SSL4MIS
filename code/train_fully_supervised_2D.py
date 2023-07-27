@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import random
 import shutil
 import sys
@@ -46,7 +47,7 @@ parser.add_argument('--base_lr', type=float,  default=0.01,
 parser.add_argument('--patch_size', type=list,  default=[256, 256],
                     help='patch size of network input')
 parser.add_argument('--seed', type=int,  default=1337, help='random seed')
-parser.add_argument('--labeled_num', type=int, default=50,
+parser.add_argument('--labeled_num', type=int, default=140,
                     help='labeled data')
 args = parser.parse_args()
 
@@ -82,7 +83,7 @@ def train(args, snapshot_path):
         random.seed(args.seed + worker_id)
 
     trainloader = DataLoader(db_train, batch_size=batch_size, shuffle=True,
-                             num_workers=16, pin_memory=True, worker_init_fn=worker_init_fn)
+                             num_workers=0, pin_memory=True, worker_init_fn=worker_init_fn)
     valloader = DataLoader(db_val, batch_size=1, shuffle=False,
                            num_workers=1)
 

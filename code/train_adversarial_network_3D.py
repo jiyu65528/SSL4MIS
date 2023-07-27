@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import random
 import shutil
 import sys

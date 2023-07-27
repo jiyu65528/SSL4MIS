@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import random
 import shutil
 import sys
@@ -51,7 +52,7 @@ parser.add_argument('--num_classes', type=int,  default=4,
 # label and unlabel
 parser.add_argument('--labeled_bs', type=int, default=12,
                     help='labeled_batch_size per gpu')
-parser.add_argument('--labeled_num', type=int, default=136,
+parser.add_argument('--labeled_num', type=int, default=7,
                     help='labeled data')
 # costs
 parser.add_argument('--ema_decay', type=float,  default=0.99, help='ema_decay')
@@ -124,7 +125,7 @@ def train(args, snapshot_path):
         labeled_idxs, unlabeled_idxs, batch_size, batch_size-args.labeled_bs)
 
     trainloader = DataLoader(db_train, batch_sampler=batch_sampler,
-                             num_workers=4, pin_memory=True, worker_init_fn=worker_init_fn)
+                             num_workers=0, pin_memory=True, worker_init_fn=worker_init_fn)
 
     model.train()
 
